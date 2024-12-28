@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nagradna podelitev za Karlo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+            font-family: 'Pacifico', cursive;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        .container {
+            text-align: center;
+            animation: fadeIn 2s ease-in-out;
+        }
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+            color: #ff4e50;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        p {
+            font-size: 1.5rem;
+            color: #fff8e1;
+        }
+        .award {
+            background: rgba(255, 255, 255, 0.3);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+            position: relative;
+            border: 3px solid #ff6f61;
+        }
+        .contender {
+            margin: 20px 0;
+            font-size: 2rem;
+            color: #ff6f61;
+        }
+        .drum-roll {
+            display: none;
+            margin-top: 30px;
+            font-size: 2.5rem;
+            color: #ffa69e;
+        }
+        .winner {
+            display: none;
+            font-size: 4rem;
+            margin-top: 50px;
+            animation: winnerFade 1.5s ease-in-out;
+            color: #ff4e50;
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        .winner img {
+            width: 350px;
+            margin-top: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border: 5px solid #ff6f61;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .flower-frame {
+            position: relative;
+            display: inline-block;
+        }
+        .flower-frame::before, .flower-frame::after {
+            content: '💐💐💐💐';
+            font-size: 3rem;
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            left: 0;
+        }
+        .flower-frame::before {
+            top: -50px;
+        }
+        .flower-frame::after {
+            bottom: -50px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes winnerFade {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .confetti {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 10px;
+            background: red;
+            opacity: 0.7;
+            border-radius: 50%;
+            animation: fall 3s linear forwards;
+        }
+        @keyframes fall {
+            to { transform: translateY(100vh); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Božična nagradna podelitev</h1>
+        <p>Dobrodošli na najbolj prestižni kategoriji leta:</p>
+        <div class="award">
+            <p>Nagrada za "Najboljšo punco na svetu"!</p>
+            <div class="contender">Kandidati:</div>
+            <p>1. Karla</p>
+            <p>2. Vsi ostali</p>
+            <button onclick="startDrumRoll()">Razkrij zmagovalca</button>
+            <div class="drum-roll" id="drumRoll">🥁 Drum Roll... 🥁</div>
+            <div class="winner" id="winner">
+                ZMAGOVALKA: Karla 🎉
+                <div class="flower-frame">
+                    <img src="Karla.jpg" alt="Karla">
+                </div>
+                <p>Karla je osvojila tudi vse ostale nagrade, vključno z:<br> - Najlepša punca 💖<br> - Najbolj smešna 😂<br> - Najboljša podpora 🤗</p>
+                <p><em>rd te mam ❤️</em></p>
+            </div>
+        </div>
+    </div>
+
+    <audio id="drumSound" src="Drum Roll - Sound Effect (HD).mp3"></audio>
+    <audio id="cheerSound" src="Children Yay! Sound Effect.mp3"></audio>
+
+    <script>
+        function startDrumRoll() {
+            const drumSound = document.getElementById('drumSound');
+            drumSound.play();
+            document.getElementById('drumRoll').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('winner').style.display = 'block';
+                const cheerSound = document.getElementById('cheerSound');
+                cheerSound.play();
+                createConfetti(100);
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            }, 5000);
+        }
+
+        function createConfetti(amount) {
+            for (let i = 0; i < amount; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 5000);
+            }
+        }
+    </script>
+</body>
+</html>
